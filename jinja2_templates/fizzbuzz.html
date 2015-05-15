@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+<ol>
+	{% for _ in range(1, n+1) %}
+		<li>
+		{% if ((loop.index is divisibleby(3) and (loop.index is divisibleby(5)))) %}FizzBuzz
+		{% elif loop.index is divisibleby(3) %}Fizz
+		{% elif (loop.index is divisibleby(5)) %}Buzz
+		{% else %}{{ loop.index }}
+		{% endif %}
+		</li>
+	{% endfor %}
+</ol>
+{% endblock %}
