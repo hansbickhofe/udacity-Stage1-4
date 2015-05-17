@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Udacity Stage3: My Notes</title>
+		<link rel="stylesheet" href="http://normalize-css.googlecode.com/svn/trunk/normalize.css" />
+		<link rel="stylesheet" type="text/css" href="style.css">
+		<link rel="icon" href="favicon.ico" sizes="16x16" type="image/png">
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+	</head>
+	<body>
+		
+		<div class="stagetitle">
+			<h1>ND Programing - Stage 3</h1>
+			<div class="subtitle">
+				<h4>The Power of Abstraction</h4>
+			</div>
+		</div>
+		<div class="header"><h2><a id="content">Content:</a></h2>
+		<div class="subheader"><h3>Lessons:&nbsp;<a href="#lesson0">0</a>&nbsp;<a href="#lesson1">1</a>
+		<a href="#lesson2">2</a>&nbsp;<a href="#lesson3">3</a>&nbsp;-&nbsp;<a href="#conclusion">My conclusion</a>
+		&nbsp;-&nbsp;<a href="#vocabulary">Vocabulary</a>&nbsp;-&nbsp;
+		<a href="https://github.com/hansbickhofe/udacity-nd-programming/tree/master/Stage3">Code samples</a></h3></div>
+		</div>
+		<div class="header"><h2><a id="lesson0">Lesson 0</a></h2>
+			<div class="subheader"><h3>What to Expect? - What Will We Create?</h3></div>
+			<div class="text">
+				<p>Introduction into the course.</p>
+				<p>Start with reflection of Basic Concepts if,while ...</p>
+			</div>
+		</div>	
+		<div class="header"><h2><a id="lesson1">Lesson 1</a></h2>
+			<div class="subheader"><h3>Use Functions - "Take a break"</h3></div>
+			<div class="text">
+				<p>In the sample program we use the import statement on two librarys.<br>
+				- webbrowser and time<br>
+				We use webbrower with the method .open and time with the methods .ctime and .sleep<br>
+				This usage is called <strong>abstraction</strong>
+				A list of avaliable Functions of the Python Standard Library could be found at this Link 
+				<a href="https://docs.python.org/2.7/library">https://docs.python.org/2.7/library</a>
+				</p>
+			</div>
+			<div class="subheader"><h3>Use Functions - "Puzzle Prank"</h3></div>
+			<div class="text">
+				<p>This time we use an other function of the Python Standard Library to get access to the <br>
+				Filesystem of your OS. <br>
+				We use os.listdir in a loop two get all the Filenames inside the folder with the<br>
+				Pictures and os.rename to change their names to a new one that we transformed with the translate function.<br>
+				We also notice the differences of the used OS's while selecting the Path.<br>
+				Notice: An <strong>Exeption</strong> occurs when files not or already exist in our folder
+				os is another Part of the Python Standard Library <a href="https://docs.python.org/2.7/library">
+				https://docs.python.org/2.7/library</a><br>
+				</p>
+			</div>
+						<div class="subheader"><h3>When Functions Do Not Suffice</h3></div>
+			<div class="text">
+				<p>Using Functions isn't allways the perfect solution.<br>
+				Sometime it seems to be needed to create multiple Versions of our function template. <br>
+				This is the point when we learn to use classes.<br>
+				
+				</p>
+			</div>
+			<a href="#content">Back to Top</a>
+		</div>		
+		<div class="header"><h2><a id="lesson2">Lesson 2</a></h2>
+			<div class="subheader"><h3>2a Using Classes Drawing Turtles</h3></div>
+			<div class="text">
+				<p>Importing the turtle Module and play around with the avaliable Methods<br>
+				</p>
+			</div>	
+			<div class="subheader"><h3>Differences between call a function and creating an <strong>&quot;Instance&quot;</strong> of a class</h3></div>
+			<div class="text">
+				<p>Creating an instance of a class differs extremly from calling a function.<br>
+				We can compare a class to a blueprint of somthing. When we create an Object or <br>
+				an Instance of the class, we can access all it's functions or attributes.<br>
+				Using classes is our approach to create more abstract Code. Which can more easily reused and <br>
+				extented for our needs.
+				</p>
+			</div>	
+		<div class="subheader"><h3>2b - Accessing a Website with Code</h3></div>
+			<div class="text">
+				<p>How to use a Webservice to send Text Messages.<br>
+				</p>
+			</div>	
+			<div class="subheader"><h3>Using classes not included in the Python Standard Library</h3></div>
+			<div class="text">
+				<p>We learn how include the downloaded Library and how to use it.<br>
+			When using the <strong>&quot;import&quot;</strong> we define which function from a module we want to use.<br>
+			The way how we write the import Line affects the was we have to write the Code that creates the Instance.<br> 
+			While creating an instance, a function named __init__ inside the module is called. <br>
+			A Class is a like a blueprint that we can use to create multiple Instances of an Object.
+				</p>
+			</div>	
+			<div class="subheader"><h3>2c - Accessing a Website with Code II</h3></div>
+			<div class="text">
+				<p>How to use a Website to check for profanity words.<br>
+				Some functions that are used very often are allway available in Python.<br>
+				They are listed in the <a href="https://docs.python.org/2/library/functions.html">Documentation 
+				of the Python Standard Library</a><br>
+				For the second Part we import the urllib Class from Python Standard Library and use it to send <br>
+				the Textinput the we readed from the File we opend win the first Part.<br>
+				Now we cant check the response from the Webservice an check it with if/elif/else to decide if <br>
+				there are curse Words in it.<br>				
+				</p>
+			</div>	
+			
+			<div class="subheader"><h3>Classes look like functions</h3></div>
+			<div class="text">
+				<p>While writing the code of our Profanity Editor, we discover <br>
+				that it looks like we are using a <strong>&quot;Function&quot;</strong> but when we took a<br>
+				closer look inside, we find the same __init__ functions like in other <strong>&quot;Classes&quot;</strong>.<br>				
+				This creates the needed space in Memory where we can work with the Object the we have <strong>&quot;instanciated&quot;</strong>
+
+				</p>
+			</div>
+			<a href="#content">Back to Top</a>			
+		</div>	
+		<div class="header"><h2><a id="lesson3">Lesson 3</a></h2>
+		<div class="subheader"><h3>Building a Movie Website - Part 1: The class</h3></div>
+			<div class="text">
+				<p>Creating our first class</p>
+				<p>For this project we will create our first <a href="#class">
+				<strong>&quot;class&quot;</strong></a><br>
+				We will define a Movie-Class using the Keyword <a href="#class">
+				<strong>&quot;class&quot;</strong></a> to display the different Movies on 
+				our Webpage.<br>
+				Now we are able to create multiple <a href="#instance">
+				<strong>&quot;Instances&quot;</strong></a> of our class<br>
+				First we put together all Datatypes and Functions that we want to put 
+				into our Class.<br> For proper Naming of our Class we take a look at the 
+				Codestyleguides for Python.<br>
+				Then we start with the <a href="#constructor"><strong>&quot;Constructor&quot;</strong></a>
+				Function called __init__ with the<br>Argument <a href="#self"><strong>
+				&quot;self&quot;</strong></a><br>Self means the Object self or the Instance we create.<br>
+				After that we add several Arguments that we want to process in our Class.<br>
+				When we create a new instance of our class we assign the Arguments to their matching 
+				<a href="#instancevariables"><strong>&quot;Instance Variables&quot;</strong></a><br>
+				Now we create our first <a href="#instancemethods"><strong>&quot;Instance Method&quot;</strong></a>
+				named <strong>&quot;show_trailer()&quot;</strong><br>
+				</p>
+			</div>
+			<div class="subheader"><h3>Building a Movie Website - Part 2: Create HTML</h3></div>
+			<div class="text">
+				<p>Creating the HTML Output for our Page</p>
+				<p>For this project we first download the referenced File fresh_tomatoes.py<br>
+				This File contains the code that creates the HTML for our Moviepage.<br>
+				All we have to do is to import the File, create al List with our Movie Objects and<br>
+				call the function open_movies_page with the Objectlist as Argument.<br>
+				</p>
+			</div>
+			<div class="subheader"><h3>Building a Movie Website - Advanced Topics</h3></div>
+			<div class="text">
+				<p><a href="#classvariables"><strong>&quot;Class Variables&quot;</strong></a></p>
+				<p>Somtimes we need Variables that are the same for all instances and not only for a specific one. <br>
+				These were defined at the Level of the Class, not inside the <strong>__init__</strong> constructor.<br>
+				<b>Note: The styleguide recommends to use all uppercase when define a Constant!</b><br>
+				</p>
+				<p><a href="#classvariables"><strong>&quot;Predefined Class Attributes: __doc__&quot;</strong></a></p>
+				<p>When accessing the predefined Class Attributes <strong>__doc__</strong> we can get Textinformation that is 
+				stored inside the Class <br>between <strong>&quot;&quot;&quot; (tripple quotes)</strong><br>
+				There are some other predefined Attributes like <strong>__name__</strong> to access the name of the Class.<br>
+				An overview is documented here: <a href="http://www2.lib.uchicago.edu/keith/courses/python/class/5/#classattrs">http://www2.lib.uchicago.edu</a>.
+				</p>
+				<p><a href="#classvariables"><strong>&quot;Inheritance&quot;</strong></a></p>
+				<p><strong>Inheritance</strong> is the principle of the ability for one object to take on the variables and 
+				functionality of another so called &quot;Parent&quot; object.
+				
+				</p>
+			</div>
+			<div class="subheader"><h3>My conclusion:</h3></div>
+			<div class="text">
+				<p><a href="#conclusion"><strong>&quot;Advantages using Classes (OOP)&quot;</strong></a></p>
+				<p>Using Classes or OOP Methods is different to conventional, procedural or modular Programming. We 
+				combine our Data<br> (Attributes) and Functions (Methods) to Objects. We are able to process or 
+				modify those Objects internaly or let them interact with other Parts of our Program, Classes, 
+				Functions or also other Objects. <br>
+				The Goal is to combine the Data directly with the suitable Code in the Memory for it's processing.<br>
+				We can create Subclasses that inherit Attributes and Methods from their "Parent" Classes and extend them
+				with additional Data Attributes and/or Methods.<br>
+				In Phyton for example,all Data is an object<br>
+				This Principle helps use make more reusable Code and reduces the risk of errors.</p>
+				<p>Thinking of Classes/Objects is a more abstract View at our Programs. We create Models/Constructors for 
+				our Objects and, if	needed Hierarchies, to break our work into a smaller and simpler Parts.<br>
+				Afterwards we can bundle our set of Classes into a Package. 
+				
+				</p>
+			</div>			
+			<a href="#content">Back to Top</a>
+		</div>
+		
+		<div class="header"><h2><a id="vocabulary">Vocabulary</a></h2>
+		<div class="subheader"><h3>New Words we learned</h3></div>
+			<div class="text">
+				<p><strong><a id="class">Class</a></strong> - An abstract Model that describes Attributes and Methods of Objects<br>				
+				<strong><a id="instance">Instance</a></strong> - An Object is an instance of a class<br>				
+				<strong><a id="constructor">Constructor</a></strong> - A Subroutine that creates the Object<br>				
+				<strong><a id="self">Self</a></strong> - Refers to the Object himself (Self is common Naming convention, we should use)<br>				
+				<strong><a id="instancevariables">Instance Variables</a></strong> - A Variable that's unique for each created Object<br>				
+				<strong><a id="instancemethods">Instance Methods</a></strong> - A Method that's unique for each created Object<br>				
+				<strong><a id="classvariables">Class Variables</a></strong> - A Variable that's created at Classlevel for all Objects<br>				
+				<strong><a id="inheritance">Inheritance</a></strong> - Creating a class bases on another Class, for reuse of code and extensions.<br>				
+				</p>
+			</div>	
+			<a href="#content">Back to Top</a>			
+		</div>		
+</body>
+</html>
