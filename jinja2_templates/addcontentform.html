@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+	{% block content %}
+	<b>Add Stage</b><br><br>
+	<div id = "stageform">
+	<form id="stageform" action="/addcontent" method="post">
+		{% if saved %}
+			<div class="codeExample" style="color: red" >{{ saved }}</div>
+		{% endif %}
+		
+		<label>
+			Stage:
+		</label>
+		<input type="hidden" name="type" value="stage">
+		<input type="search" list="stage"  name="stageno">
+			<datalist id="stage">
+			{% for stage in stagetitles %}
+				<option value = "{{ stage }}">
+			{% endfor %}
+			</datalist>
+
+
+		<input type="search" list ="subtitles"  name="stagesubtitle">
+	
+		<datalist id="subtitles">
+		{% for subtitles in stagesubtitles %}
+			<option value = "{{ subtitles }}">
+		{% endfor %}
+		</datalist>
+
+		<br>		
+
+		<input type="submit" value="Save Stage">
+	</form>
+	</div>
+	<hr>
+	<b>Add Note</b><br><br>
+	<div id = "noteform">
+		<form id="noteform" action="/addcontent" method="post">
+		{% if saved %}
+			<div class="codeExample" style="color: red" >{{ saved }}</div>
+		{% endif %}
+		
+		<label>
+			Stage:
+		</label>
+		<input type="hidden" name="type" value="note">
+		<input type="search" list="stage"  name="stageno">
+			<datalist id="stage">
+			{% for stage in stagetitles %}
+				<option value = "{{ stage }}">
+			{% endfor %}
+			</datalist>
+
+
+		<input type="search" list ="subtitles"  name="stagesubtitle">
+	
+		<datalist id="subtitles">
+		{% for subtitles in stagesubtitles %}
+			<option value = "{{ subtitles }}">
+		{% endfor %}
+		</datalist>
+
+		<br>
+
+		<label>
+			Lesson:
+		</label>
+
+		<input type="text" id="stage" name="lessonheader" value="Header">
+
+
+		<input type="text" id="stage" name="lessonsubheader" value="Subheader">
+		<br>
+		<label>
+			Lesson Number:
+		</label>
+		<input type="text" id="stage" name="articlenumber" value="Order Num">
+		<br>
+
+		<label>
+			Lesson text:
+		</label>
+
+		<textarea id="stage" name="lessontext" value="" cols="50" rows="10"></textarea>
+		<br>
+		
+		<label>
+			Lesson Tags(comma or space separated):
+		</label>
+
+		<input type="text" id="stage" name="lessontags" value="">
+		<br>
+
+		<input type="submit" value="Save Note">
+	</form>
+	</div>
+	{% endblock %}
