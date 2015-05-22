@@ -1,17 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Udacity ND Programing</title>
+    <title>{{ pageheader }}</title>
 	<link rel="stylesheet" href="http://normalize-css.googlecode.com/svn/trunk/normalize.css" />
 	<link rel="stylesheet" type="text/css" href="/css/style.css">
 	<link rel="icon" href="/favicon.ico" sizes="16x16" type="image/png">
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	</head>
+	
+	<script type="text/javascript">
+	<!--
+		function toggle_visibility(div_id) {
+		   var comment_div = document.getElementById(div_id);
+		   if(comment_div.style.display == 'block')
+			  comment_div.style.display = 'none';
+		   else
+			  comment_div.style.display = 'block';
+		}
+	-->
+	</script>
+
 </head>
 <body>
-	<div id="navigation">{% block cover %}{% endblock %}</div>
-    <div id="content">{% block content %}{% endblock %}</div>
+	{% block pagehead %}
+		<div class="stagetitle">
+		<h1>{{ pagetitle }}</h1>
+		<form action="{{ loginurl }}">
+			<input type="submit" value="{{ linktext }}">
+		</form>
+		<div class="subtitle">
+			<h4>{{ pagesubtitle }}</h4>
+		</div>
+	{% endblock %}
+
+    {% block content %}{% endblock %}
+	
+	{% block footer %}
+	</div>
 </body>
 </html>
+	{% endblock %}
+	

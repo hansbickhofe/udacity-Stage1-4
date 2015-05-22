@@ -12,6 +12,11 @@ indexes:
 
 - kind: Article
   properties:
+  - name: header
+  - name: note
+
+- kind: Article
+  properties:
   - name: stagetitle
   - name: articlenumber
 
@@ -19,3 +24,14 @@ indexes:
   properties:
   - name: stagetitle
   - name: lessonheader
+
+- kind: Article
+  ancestor: yes
+  properties:
+  - name: header
+
+- kind: Greeting
+  ancestor: yes
+  properties:
+  - name: date
+    direction: desc

@@ -5,7 +5,7 @@
 	-ms-box-sizing: border-box;
 	-webkit-flex-wrap: wrap; 
 	box-sizing: border-box;
-	/* outline: 1px solid red !important */
+	/* outline: 1px solid red !important*/
 	
 }
 
@@ -13,7 +13,7 @@ body {
 	background-color: white;
 	font-family: sans-serif;
 	padding-left: 30px;
-	max-width: 80%;
+	max-width: 100%;
 	display: -webkit-flex; /* Safari */
     display: flex;   
     flex-wrap: wrap;
@@ -57,7 +57,7 @@ br {
 	border-radius: 15px;
 	margin-top: 5px;
 	margin-bottom: 5px;
-	min-width: 100%;
+	min-width: 80%;
 }
 
 .subtitle {
@@ -104,6 +104,19 @@ br {
 	list-style-type: none;
 	margin: 0px;
 	
+}
+
+.comments {
+	font-weight: normal;
+	font-size: 12px;
+	background-color: rgb(180, 200, 260);
+	padding-left: 35px;
+	padding-right: 35px;
+	padding-top: 5px;
+	padding-bottom: 5px ;
+	margin-bottom: 8px;
+	z-index:99;
+	display: none;
 }
 
 /*

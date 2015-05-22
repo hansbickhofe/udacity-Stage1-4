@@ -31,6 +31,9 @@ handlers:
 - url: /fizzbuzz.*
   script: fizzbuzz.app  
 
+- url: /guestbook.*
+  script: guestbook.app
+  
 - url: /addcontent.*
   script: addcontent.app  
   

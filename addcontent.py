@@ -10,9 +10,19 @@ import os
 import cgi
 from webapp2_extras import json
 
-
+#Constants for this Stage 
+TITLE = 'Stage4'
+SUBTITLE = '"Allow Comments on your Page"'
 TEMPLATES_DIR = os.path.join(os.path.dirname(__file__), 'jinja2_templates')
 JINJA_ENVIRONMENT = jinja2.Environment(loader = jinja2.FileSystemLoader(TEMPLATES_DIR),autoescape = True)
+DEFAULT_NOTES = 'Notes'
+
+def note_key(note_name=DEFAULT_NOTES):
+	"""Constructs a Datastore key for a Note entity.
+
+	We use note_name as the key.
+	"""
+	return ndb.Key('Note', note_name)
 	
 class Handler(webapp2.RequestHandler):
 	def write(self, *a, **kw):
@@ -27,54 +37,22 @@ class Handler(webapp2.RequestHandler):
 
 class AddContentHandler(Handler):
 	def get(self):
-		getall_stagetitles = Stage.get_all_stages()
-		titles = []		
-		subtitles = []		
 		
-		for stage in getall_stagetitles:
-			titles.append(stage.stagetitle)	
-			subtitles.append(stage.stagesubtitle)
-						
-		self.render('addcontentform.html', stagetitles = titles, stagesubtitles = subtitles)
+		self.render('addcontentform.html', pagetitle = TITLE, pagesubtitle = SUBTITLE)
 		
 	def post(self):
-		getall_stagetitles = Stage.get_all_stages()
-		titles = []		
-		subtitles = []		
-		for stage in getall_stagetitles:
-			titles.append(stage.stagetitle)	
-			subtitles.append(stage.stagesubtitle)
-			lessons = ("")
-
-		if cgi.escape(self.request.get("type")) == "stage":
-			stagetitle = cgi.escape(self.request.get("stageno"))
-			stagesubtitle = cgi.escape(self.request.get("stagesubtitle"))
-			logging.info(self.request.get("stageno"))
-			newstage = Stage()
-			newstage.stagetitle = stageno
-			newstage.stagesubtitle = stagesubtitle
-			newstage.put()
-		else: 
-			stageno = cgi.escape(self.request.get("stageno"))
-			stagesubtitle = cgi.escape(self.request.get("stagesubtitle"))
-			lessonheader = cgi.escape(self.request.get("lessonheader"))
-			lessonsubheader = cgi.escape(self.request.get("lessonsubheader"))
-			articlenumber = cgi.escape(self.request.get("articlenumber"))
-			lessontext = cgi.escape(self.request.get("lessontext"))
-			lessontags = [cgi.escape(self.request.get("lessontags"))]
-			logging.info(self.request.get("type"))
-			lessons = ("")
-			newarticle = Article()
-			newarticle.lessonheader = lessonheader
-			newarticle.lessonsubheader = lessonsubheader
-			newarticle.articletext = lessontext
-			newarticle.articletags = lessontags
-			newarticle.stagetitle = stageno
-			newarticle.articlenumber = articlenumber
-			newarticle.stagesubtitle = stagesubtitle
-			newarticle.put()
+		header = cgi.escape(self.request.get("header"))
+		subheader = cgi.escape(self.request.get("subheader"))
+		note = cgi.escape(self.request.get("note"))
+		# Using Ancestor Queries, because of their strong consistensy
+		note_name = DEFAULT_NOTES
+		newarticle = Article(parent=note_key(note_name))
+		newarticle.header = header
+		newarticle.subheader = subheader
+		newarticle.note = note
+		newarticle.put()
 					
-		self.render('addcontentform.html', stagetitles = titles, stagesubtitles = subtitles, lessonheaders = lessons, saved = "Saved!")
+		self.render('addcontentform.html', pagetitle = TITLE, pagesubtitle = SUBTITLE, saved = "Saved!")
 		
 	
 app = webapp2.WSGIApplication([
