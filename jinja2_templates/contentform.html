@@ -1,14 +1,17 @@
 {% extends "base.html" %}
 	{% block content %}
 	<hr>
-	<b>Add Note</b><br><br>
+	<b>Add or edit Note</b><br><br>
 	<div id = "noteform">
+		{% if add %}
 		<form id="noteform" action="/addcontent" method="post">
+		{% else %}
+		<form id="noteform" action="/editcontent" method="post">
+		{% endif %}
 		{% if saved %}
 			<div style="color: red" >{{ saved }}</div>
 		{% endif %}
 		
-
 		<label>
 			Header:
 		</label>

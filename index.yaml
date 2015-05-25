@@ -30,6 +30,22 @@ indexes:
   properties:
   - name: header
 
+- kind: Article
+  ancestor: yes
+  properties:
+  - name: noteid
+
+- kind: Comment
+  properties:
+  - name: commentednote
+  - name: commentcreatedtimestamp
+
+- kind: Comment
+  ancestor: yes
+  properties:
+  - name: commentednote
+  - name: commentcreatedtimestamp
+
 - kind: Greeting
   ancestor: yes
   properties:

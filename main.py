@@ -8,7 +8,7 @@ import jinja2
 import logging
 import os
 import cgi
-from webapp2_extras import json
+from collections import namedtuple
 import pprint
 
 #Constants for this Stage 
@@ -16,6 +16,9 @@ TITLE = 'Stage4'
 SUBTITLE = '"Allow Comments on your Page"'
 TEMPLATES_DIR = os.path.join(os.path.dirname(__file__), 'jinja2_templates')
 JINJA_ENVIRONMENT = jinja2.Environment(loader = jinja2.FileSystemLoader(TEMPLATES_DIR),autoescape = True)
+DEFAULT_COMMENTS = 'Comments'
+ARTICLE = namedtuple('Article', ['header','subheader','note','noteid','comments'])
+COMMENT = namedtuple('Comment', ['commentednote','commentauthor','commenttext'])
 
 # using Handler from Videolesson	
 class Handler(webapp2.RequestHandler):
@@ -31,21 +34,52 @@ class Handler(webapp2.RequestHandler):
 
 
 class MainHandler(Handler):
-    def get(self):
+	def get(self):
+		notes_list = []
 		user = users.get_current_user()
 		if user:
 			url = users.create_logout_url(self.request.uri)
 			url_linktext = 'Logout'
 			user_mail = user.email()
-			logging.info("debug " + user_mail)
+			user_nickname = user.nickname()
+			user_userid = user.user_id()
 		else:
 			user = 'Anonymous Poster'
 			url = users.create_login_url(self.request.uri)
 			url_linktext = 'Login'
 			user_mail = ""
-		notes = Article.get_all()
 			
-		self.render('content.html', pageheader = 'Udacity ND Programing', lesson_notes = notes, pagetitle = TITLE, pagesubtitle = SUBTITLE, user=user_mail, loginurl = url, linktext = url_linktext)
+		
+		notes = Article.get_all()
+		
+		for note in notes:			
+			comments = Comment.get_all(note.noteid)
+			comment_list = []
+			for comment in comments:
+				comment_list += [COMMENT(note.noteid,comment.commentauthor.name, comment.commenttext)]
+			notes_list += [ARTICLE(note.header, note.subheader, note.note, note.noteid, comment_list)]
+
+		logging.info("Note: " + str(notes_list))
+		self.render('content.html', pageheader = 'Udacity ND Programing', lesson_notes = notes_list, pagetitle = TITLE, pagesubtitle = SUBTITLE, user=user_mail, loginurl = url, linktext = url_linktext )
+	
+	def post(self):
+		comment_name = (DEFAULT_COMMENTS)
+		user = users.get_current_user()
+		if user:
+			note_id = int(cgi.escape(self.request.get("note_id")))
+			comment = cgi.escape(self.request.get("comment"))
+			# Using Ancestor Queries, because of their strong consistensy
+			newcomment = Comment(parent=comment_key(comment_name))
+			newcomment.commentednote = note_id
+			newcomment.commenttext = comment
+			newcomment.commentauthor = Author(
+				userid = user.user_id(),
+				name = user.nickname(),
+				email = user.email(),
+				)
+			newcomment.put()
+			self.redirect("/")
+						
 		
 app = webapp2.WSGIApplication([
 	('/', MainHandler),
