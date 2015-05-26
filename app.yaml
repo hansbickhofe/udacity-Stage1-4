@@ -36,6 +36,11 @@ handlers:
   
 - url: /addcontent.*
   script: addcontent.app  
+  login: admin
+    
+- url: /editcontent.*
+  script: editcontent.app 
+  login: admin  
   
 - url: .*
   script: main.app

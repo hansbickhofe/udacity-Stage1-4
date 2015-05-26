@@ -24,6 +24,7 @@ def note_key(note_name=DEFAULT_NOTES):
 	"""
 	return ndb.Key('Note', note_name)
 	
+# using Handler from Videolesson		
 class Handler(webapp2.RequestHandler):
 	def write(self, *a, **kw):
 		self.response.out.write(*a,**kw)
@@ -37,25 +38,38 @@ class Handler(webapp2.RequestHandler):
 
 class EditContentHandler(Handler):
 	def get(self):
-		
-		self.render('contentform.html', pagetitle = TITLE, pagesubtitle = SUBTITLE)
+		self.redirect("/")		
 		
 	def post(self):
-		header = cgi.escape(self.request.get("header"))
-		subheader = cgi.escape(self.request.get("subheader"))
-		note = self.request.get("note")
-		noteindex = int(cgi.escape(self.request.get("noteindex")))
-		# Using Ancestor Queries, because of their strong consistensy
-		note_name = DEFAULT_NOTES
-		newarticle = Article(parent=note_key(note_name))
-		newarticle.header = header
-		newarticle.subheader = subheader
-		newarticle.noteid = noteindex
-		newarticle.note = note
-		newarticle.put()
-					
-		self.render('addcontentform.html', pagetitle = TITLE, pagesubtitle = SUBTITLE, saved = "Saved!")
-		
+		user = users.get_current_user()
+		if user:
+			url = users.create_logout_url(self.request.uri)
+			url_linktext = 'Logout'
+			user_mail = user.email()
+			user_nickname = user.nickname()
+			user_userid = user.user_id()
+
+			if cgi.escape(self.request.get("edit")) == "1" and users.is_current_user_admin():
+				note_to_edit = int(cgi.escape(self.request.get("note_id")))
+				note = Article.get_single(note_to_edit)
+				logging.info(str(note))
+				self.render('contentform.html', pagetitle = TITLE, pagesubtitle = SUBTITLE, editnote = note, user = user_userid, loginurl = url, linktext = url_linktext)
+			else:
+				header = cgi.escape(self.request.get("header"))
+				subheader = cgi.escape(self.request.get("subheader"))
+				note = self.request.get("note")
+				noteindex = int(cgi.escape(self.request.get("noteindex")))
+				# Using Ancestor Queries, because of their strong consistensy
+				note_name = DEFAULT_NOTES
+				newarticle = Article(parent=note_key(note_name))
+				newarticle.header = header
+				newarticle.subheader = subheader
+				newarticle.noteid = noteindex
+				newarticle.note = note
+				newarticle.put()
+				self.redirect("/")							
+		else:
+			self.redirect("/")							
 	
 app = webapp2.WSGIApplication([
 	('/editcontent', EditContentHandler),

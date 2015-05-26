@@ -3,7 +3,15 @@
 {% block content %}
 	{% for note in lesson_notes recursive %}
 		{% set outer_loop = loop %}
-		<div class="header"><h2>{{ note.header }}</h2>		
+		
+		<div class="header"><h2>{{ note.header }}</h2>
+		{% if is_admin == 1 %}
+		<form action="/editcontent" method="POST">
+			<input type="hidden" name="edit" value="1">
+			<input type="hidden" name="note_id" value="{{ note.noteid }}">
+			<input type="submit" value="Edit">
+		</form>
+		{% endif %}
 			<div class="subheader"><h3>{{ note.subheader }}</h3></div>
 		
 			<div class="text">{{ note.note|safe }}</div>

@@ -36,6 +36,7 @@ class Handler(webapp2.RequestHandler):
 class MainHandler(Handler):
 	def get(self):
 		notes_list = []
+		admin_logged_in = 0
 		user = users.get_current_user()
 		if user:
 			url = users.create_logout_url(self.request.uri)
@@ -43,6 +44,8 @@ class MainHandler(Handler):
 			user_mail = user.email()
 			user_nickname = user.nickname()
 			user_userid = user.user_id()
+			if users.is_current_user_admin():
+				admin_logged_in = 1
 		else:
 			user = 'Anonymous Poster'
 			url = users.create_login_url(self.request.uri)
@@ -60,7 +63,9 @@ class MainHandler(Handler):
 			notes_list += [ARTICLE(note.header, note.subheader, note.note, note.noteid, comment_list)]
 
 		logging.info("Note: " + str(notes_list))
-		self.render('content.html', pageheader = 'Udacity ND Programing', lesson_notes = notes_list, pagetitle = TITLE, pagesubtitle = SUBTITLE, user=user_mail, loginurl = url, linktext = url_linktext )
+		self.render('content.html', pageheader = 'Udacity ND Programing', lesson_notes = notes_list, 
+					pagetitle = TITLE, pagesubtitle = SUBTITLE, user=user_mail, loginurl = url, 
+					linktext = url_linktext, is_admin = admin_logged_in)
 	
 	def post(self):
 		comment_name = (DEFAULT_COMMENTS)

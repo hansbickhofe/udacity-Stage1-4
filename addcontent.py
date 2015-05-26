@@ -24,6 +24,7 @@ def note_key(note_name=DEFAULT_NOTES):
 	"""
 	return ndb.Key('Note', note_name)
 	
+# using Handler from Videolesson		
 class Handler(webapp2.RequestHandler):
 	def write(self, *a, **kw):
 		self.response.out.write(*a,**kw)
@@ -37,8 +38,21 @@ class Handler(webapp2.RequestHandler):
 
 class AddContentHandler(Handler):
 	def get(self):
-		
-		self.render('contentform.html', pagetitle = TITLE, pagesubtitle = SUBTITLE)
+		user = users.get_current_user()
+		if user:
+			url = users.create_logout_url(self.request.uri)
+			url_linktext = 'Logout'
+			user_mail = user.email()
+			user_nickname = user.nickname()
+			user_userid = user.user_id()
+		else:
+			user = 'Anonymous Poster'
+			url = users.create_login_url(self.request.uri)
+			url_linktext = 'Login'
+			user_mail = ""
+			
+		self.render('contentform.html', pagetitle = TITLE, pagesubtitle = SUBTITLE, add = 1, 
+										user=user_mail, loginurl = url, linktext = url_linktext )
 		
 	def post(self):
 		header = cgi.escape(self.request.get("header"))
@@ -54,7 +68,7 @@ class AddContentHandler(Handler):
 		newarticle.note = note
 		newarticle.put()
 					
-		self.render('addcontentform.html', pagetitle = TITLE, pagesubtitle = SUBTITLE, saved = "Saved!")
+		self.render('contentform.html', pagetitle = TITLE, pagesubtitle = SUBTITLE, saved = "Saved!")
 		
 	
 app = webapp2.WSGIApplication([

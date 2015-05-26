@@ -58,5 +58,15 @@ class Article(ndb.Model):
 		all_notes = all_notes_query.fetch()
 		return all_notes 
 	
+	@classmethod	
+	def get_single(self,noteid):
+		""" get single Article"""
+		# Using Ancestor Queries, because of their strong consistensy
+		note_name = DEFAULT_NOTES
+		single_note_query = self.query(ancestor = note_key(note_name),
+							filters=(self.noteid == noteid))
+		single_note = single_note_query.fetch(1)
+		return single_note 
+	
 	
 	
