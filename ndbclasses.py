@@ -31,7 +31,7 @@ class Comment(ndb.Model):
 	commentednote = ndb.IntegerProperty(indexed=True)
 	commentcreatedtimestamp = ndb.DateTimeProperty(auto_now_add=True)
 	
-	
+	# get all comments related to an article
 	@classmethod
 	def get_all(self,noteid):
 		""" get all comments"""
@@ -49,6 +49,7 @@ class Article(ndb.Model):
 	header = ndb.StringProperty(indexed=True)
 	subheader = ndb.StringProperty(indexed=False)
 	
+	#get all articles
 	@classmethod
 	def get_all(self):
 		""" get all Articles"""
@@ -58,6 +59,7 @@ class Article(ndb.Model):
 		all_notes = all_notes_query.fetch()
 		return all_notes 
 	
+	# get single article 
 	@classmethod	
 	def get_single(self,noteid):
 		""" get single Article"""

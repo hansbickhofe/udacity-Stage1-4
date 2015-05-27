@@ -5,11 +5,9 @@ from google.appengine.ext import ndb
 from ndbclasses import *
 import webapp2
 import jinja2
-import logging
 import os
 import cgi
 from collections import namedtuple
-import pprint
 
 #Constants for this Stage 
 TITLE = 'Stage4'
@@ -34,8 +32,9 @@ class Handler(webapp2.RequestHandler):
 
 
 class MainHandler(Handler):
+	
 	def get(self):
-		notes_list = []
+		#login check
 		admin_logged_in = 0
 		user = users.get_current_user()
 		if user:
@@ -51,23 +50,25 @@ class MainHandler(Handler):
 			url = users.create_login_url(self.request.uri)
 			url_linktext = 'Login'
 			user_mail = ""
-			
 		
+		notes_list = []	
+		# get all articles 
 		notes = Article.get_all()
 		
 		for note in notes:			
+			# and the comments
 			comments = Comment.get_all(note.noteid)
 			comment_list = []
 			for comment in comments:
 				comment_list += [COMMENT(note.noteid,comment.commentauthor.name, comment.commenttext)]
 			notes_list += [ARTICLE(note.header, note.subheader, note.note, note.noteid, comment_list)]
 
-		logging.info("Note: " + str(notes_list))
 		self.render('content.html', pageheader = 'Udacity ND Programing', lesson_notes = notes_list, 
 					pagetitle = TITLE, pagesubtitle = SUBTITLE, user=user_mail, loginurl = url, 
 					linktext = url_linktext, is_admin = admin_logged_in)
 	
 	def post(self):
+		# post comment
 		comment_name = (DEFAULT_COMMENTS)
 		user = users.get_current_user()
 		if user:

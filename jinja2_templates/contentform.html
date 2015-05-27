@@ -6,9 +6,9 @@
 	<b>Add or edit Note</b><br><br>
 	<div id = "noteform">
 		{% if add == 1 %}
-		<form id="noteform" action="/addcontent" method="post">
+		<form id="noteform" action="/addcontent" method="POST">
 		{% else %}
-		<form id="noteform" action="/editcontent" method="post">
+		<form id="noteform" action="/editcontent" method="POST">
 		{% endif %}
 		
 		{% if user %}
