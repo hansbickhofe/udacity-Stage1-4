@@ -24,17 +24,21 @@
 	{% block pagehead %}
 		<div class="stagetitle">
 		<h1>{{ pagetitle }}</h1>
-		<form action="{{ loginurl }}">
-			<input type="submit" value="{{ linktext }}">
-		</form>
+
+		<a href="{{ login_out_url | safe }}">{{ linktext }}</a>
+
 		<div class="subtitle">
 			<h4>{{ pagesubtitle }}</h4>
 		</div>
+		{% if is_admin == 1 %}
+		<div><a href="/addcontent">Add Content</a>
+		{% endif %}
 	{% endblock %}
 
     {% block content %}{% endblock %}
 	
 	{% block footer %}
+		</div>
 	</div>
 </body>
 </html>

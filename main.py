@@ -3,11 +3,13 @@
 from google.appengine.api import users
 from google.appengine.ext import ndb
 from ndbclasses import *
+from collections import namedtuple
 import webapp2
 import jinja2
 import os
 import cgi
-from collections import namedtuple
+
+
 
 #Constants for this Stage 
 TITLE = 'Stage4'
@@ -37,6 +39,7 @@ class MainHandler(Handler):
 		#login check
 		admin_logged_in = 0
 		user = users.get_current_user()
+		
 		if user:
 			url = users.create_logout_url(self.request.uri)
 			url_linktext = 'Logout'
@@ -64,7 +67,7 @@ class MainHandler(Handler):
 			notes_list += [ARTICLE(note.header, note.subheader, note.note, note.noteid, comment_list)]
 
 		self.render('content.html', pageheader = 'Udacity ND Programing', lesson_notes = notes_list, 
-					pagetitle = TITLE, pagesubtitle = SUBTITLE, user=user_mail, loginurl = url, 
+					pagetitle = TITLE, pagesubtitle = SUBTITLE, user=user_mail, login_out_url = url, 
 					linktext = url_linktext, is_admin = admin_logged_in)
 	
 	def post(self):
