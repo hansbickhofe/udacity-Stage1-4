@@ -4,6 +4,7 @@ import webapp2
 import jinja2
 import os
 import cgi
+import logging
 
 from google.appengine.api import users
 from ndbclasses import *
@@ -54,6 +55,7 @@ class EditContentHandler(Handler):
 			if cgi.escape(self.request.get("edit")) == "1":
 				note_to_edit = int(cgi.escape(self.request.get("note_id")))
 				note = Article.get_single(note_to_edit)
+				logging.info(str(note))
 				#Render Article entity into contenform
 				self.render('contentform.html', pagetitle = TITLE, pagesubtitle = SUBTITLE, editnote = note, user = user_userid, loginurl = url, linktext = url_linktext)
 			

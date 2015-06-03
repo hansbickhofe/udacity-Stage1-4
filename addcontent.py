@@ -3,6 +3,7 @@
 from google.appengine.api import users
 from ndbclasses import *
 from google.appengine.ext import ndb
+from collections import namedtuple
 import webapp2
 import jinja2
 import os
@@ -14,6 +15,7 @@ SUBTITLE = '"Allow Comments on your Page"'
 TEMPLATES_DIR = os.path.join(os.path.dirname(__file__), 'jinja2_templates')
 JINJA_ENVIRONMENT = jinja2.Environment(loader = jinja2.FileSystemLoader(TEMPLATES_DIR),autoescape = True)
 DEFAULT_NOTES = 'Notes'
+ARTICLE = namedtuple('Article', ['header','subheader','note','noteid'])
 
 def note_key(note_name=DEFAULT_NOTES):
 	"""Constructs a Datastore key for a Note entity.
@@ -58,22 +60,31 @@ class AddContentHandler(Handler):
 			user_mail = user.email()
 			user_nickname = user.nickname()
 			user_userid = user.user_id()
+			
 			header = cgi.escape(self.request.get("header"))
 			subheader = cgi.escape(self.request.get("subheader"))
 			note = self.request.get("note")
-			noteindex = int(cgi.escape(self.request.get("noteindex")))
-			# Using Ancestor Queries, because of their strong consistensy
-			note_name = DEFAULT_NOTES
-			newarticle = Article(parent=note_key(note_name))
-			newarticle.header = header
-			newarticle.subheader = subheader
-			newarticle.noteid = noteindex
-			newarticle.note = note
-			newarticle.put()
-						
-			self.render('contentform.html', editnote = [""], pagetitle = TITLE, pagesubtitle = SUBTITLE, saved = "Saved!", 
+			
+			check_note_id = cgi.escape(self.request.get("noteindex"))
+			
+			if check_note_id  and check_note_id.isdigit():
+				noteindex = int(cgi.escape(self.request.get("noteindex")))
+					
+				# Using Ancestor Queries, because of their strong consistensy
+				note_name = DEFAULT_NOTES
+				newarticle = Article(parent=note_key(note_name))
+				newarticle.header = header
+				newarticle.subheader = subheader
+				newarticle.noteid = noteindex
+				newarticle.note = note
+				newarticle.put()
+				self.render('contentform.html', editnote = [""], pagetitle = TITLE, pagesubtitle = SUBTITLE, returnvalue = "Saved!", 
 											add = 1, user=user_mail, loginurl = url, linktext = url_linktext)
-		
+			else:
+				noteid = "???"
+				note = [ARTICLE(header, subheader, note, noteid)]
+				self.render('contentform.html', editnote = note, pagetitle = TITLE, pagesubtitle = SUBTITLE, returnvalue = "Please enter a valid Noteindex", 
+											add = 1, user=user_mail, loginurl = url, linktext = url_linktext)
 	
 app = webapp2.WSGIApplication([
 	('/addcontent', AddContentHandler),

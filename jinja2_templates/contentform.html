@@ -11,33 +11,33 @@
 			<form id="noteform" action="/editcontent" method="POST">
 			{% endif %}
 
-			{% if saved %}
-				<div style="color: red" >{{ saved }}</div>
+			{% if returnvalue %}
+				<div style="color: red" >{{ returnvalue }}</div>
 			{% endif %}
 			
 			<label>
 				Header:
 			</label>
 
-			<input type="text" name="header" {% if add == 1 %} value="Header" {% else %} value="{{ note.header }}" {% endif %}>
+			<input type="text" name="header" {% if add == 1 and returnvalue == "Saved!" %} value="Header" {% else %} value="{{ note.header }}" {% endif %}>
 			
 			<label>
 				Subheader:
 			</label>
 			
-			<input type="text" name="subheader" {% if add == 1 %} value="Subheader" {% else %} value="{{ note.subheader }}" {% endif %}>
+			<input type="text" name="subheader" {% if add == 1 and returnvalue == "Saved!" %} value="Subheader" {% else %} value="{{ note.subheader }}" {% endif %}>
 			<br>
 			<label>
 				Noteindex:
 			</label>
 			
-			<input type="text" name="noteindex"{% if add == 1 %} {% else %} value="{{ note.noteid }}" {% endif %}>
+			<input type="text" name="noteindex"{% if add == 1 and returnvalue == "Saved!" %} {% else %} value="{{ note.noteid }}" {% endif %}>
 			<br>		
 			<label>
 				Note:
 			</label>
 
-			<textarea name="note" cols="50" rows="10">{% if add == 1 %}Your Note{% else %}{{ note.note }}{% endif %}</textarea>
+			<textarea name="note" cols="50" rows="10">{% if add == 1 and returnvalue == "Saved!" %}Your Note{% else %}{{ note.note }}{% endif %}</textarea>
 			<br>
 			
 			<input type="submit" value="Save Note">
