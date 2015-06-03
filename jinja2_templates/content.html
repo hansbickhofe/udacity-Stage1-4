@@ -25,7 +25,7 @@
 			</div>
 				<div id="comments-{{ outer_loop.index0 }}" class="comments">
 				{% for comment in note.comments  %}
-					{{ comment.commentauthor }}: {{ comment.commenttext }}<br>	
+					{{ comment.commentauthor }}: {{ comment.commenttext|safe }}<br>	
 				{% endfor %}
 					<div>
 					{% if user %}
