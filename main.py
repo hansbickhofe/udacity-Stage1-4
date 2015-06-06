@@ -63,11 +63,14 @@ class MainHandler(Handler):
 			comments = Comment.get_all(note.noteid)
 			comment_list = []
 			for comment in comments:
-				comment_list += [COMMENT(note.noteid,comment.commentauthor.name, comment.commenttext)]
-			notes_list += [ARTICLE(note.header, note.subheader, note.note, note.noteid, comment_list)]
+				comment_list += [COMMENT(note.noteid,comment.commentauthor.name, 
+								comment.commenttext)]
+			notes_list += [ARTICLE(note.header, note.subheader, note.note, 
+								note.noteid, comment_list)]
 
-		self.render('content.html', pageheader = 'Udacity ND Programing', lesson_notes = notes_list, 
-					pagetitle = TITLE, pagesubtitle = SUBTITLE, user=user_mail, login_out_url = url, 
+		self.render('content.html', pageheader = 'Udacity ND Programing', 
+					lesson_notes = notes_list, pagetitle = TITLE, 
+					pagesubtitle = SUBTITLE, user=user_mail, login_out_url = url, 
 					linktext = url_linktext, is_admin = admin_logged_in)
 	
 	def post(self):

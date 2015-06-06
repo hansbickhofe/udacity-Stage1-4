@@ -6,12 +6,10 @@ threadsafe: yes
 
 handlers:
 
-- url: /stage1
+- url: /stage12
   static_dir: Stage12
 
-- url: /stage2
-  static_dir: Stage12
- 
+
 - url: /stage3
   static_dir: Stage3
 
