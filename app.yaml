@@ -6,31 +6,15 @@ threadsafe: yes
 
 handlers:
 
-- url: /stage12
-  static_dir: Stage12
-
-
-- url: /stage3
-  static_dir: Stage3
-
 - url: /css
   static_dir: css
- 
-- url: /images
-  static_dir: images
-  
-- url: /js
-  static_dir: js
-  
+
 - url: /favicon.ico
   static_files: favicon.ico
   upload: favicon\.ico
 
 - url: /fizzbuzz.*
   script: fizzbuzz.app  
-
-- url: /guestbook.*
-  script: guestbook.app
   
 - url: /addcontent.*
   script: addcontent.app  
